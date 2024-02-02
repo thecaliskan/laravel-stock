@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace TheCaliskan\Stock\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class StockCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-stock';
 
     public $description = 'My command';
 
