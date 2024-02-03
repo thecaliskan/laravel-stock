@@ -4,6 +4,7 @@ namespace TheCaliskan\Stock\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\LaravelData\Support\DataConfig;
 use TheCaliskan\Stock\StockServiceProvider;
 
 class TestCase extends Orchestra
@@ -13,8 +14,12 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'TheCaliskan\\Stock\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'TheCaliskan\\StockData\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+
+        $this->app->when(DataConfig::class)
+            ->needs('$config')
+            ->give([]);
     }
 
     protected function getPackageProviders($app)
@@ -26,9 +31,5 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
-
-        $migration = include __DIR__.'/../database/migrations/create_stocks_table.php';
-        $migration->up();
     }
 }

@@ -4,7 +4,6 @@ namespace TheCaliskan\Stock;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use TheCaliskan\Stock\Commands\StockCommand;
 
 class StockServiceProvider extends PackageServiceProvider
 {
@@ -17,8 +16,9 @@ class StockServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-stock')
-            ->hasConfigFile()
-            ->hasMigration('create_laravel_stock_table')
-            ->hasCommand(StockCommand::class);
+            ->hasConfigFile([
+                'stock',
+                'data',
+            ]);
     }
 }

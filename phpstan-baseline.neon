@@ -1,0 +1,26 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
+			count: 1
+			path: src/Data/CryptoData.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
+			count: 1
+			path: src/Data/ForexData.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
+			count: 1
+			path: src/Data/StockData.php
+
+		-
+			message: "#^Method TheCaliskan\\\\Stock\\\\Exceptions\\\\InvalidDateException\\:\\:getLowDate\\(\\) should return Carbon\\\\Carbon but returns Carbon\\\\Carbon\\|false\\.$#"
+			count: 1
+			path: src/Exceptions/InvalidDateException.php
+
+		-
+			message: "#^Method TheCaliskan\\\\Stock\\\\StockClient\\:\\:latest\\(\\) should return Carbon\\\\Carbon but returns Carbon\\\\Carbon\\|false\\.$#"
+			count: 1
+			path: src/StockClient.php
