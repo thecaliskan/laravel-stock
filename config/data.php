@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Enumerable;
 
 return [
