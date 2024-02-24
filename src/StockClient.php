@@ -43,7 +43,7 @@ class StockClient
         return $this->cache->remember(
             key: 'stock:'.$typeEnum->lower().':'.$date->format('Y-m-d'),
             ttl: 60 * 60 * 24,
-            callback: fn () => $this->get($typeEnum->path($date))['results']
+            callback: fn () => $this->get($typeEnum->path($date))['results'] ?? []
         );
     }
 
@@ -56,7 +56,7 @@ class StockClient
          */
         $response = curl_exec($curlHandle);
 
-        if (curl_errno($curlHandle)) {
+        if ($this->hasCurlError($curlHandle)) {
             $curlError = curl_error($curlHandle);
 
             throw ClientException::unexpectedResponse($curlError);
@@ -67,11 +67,21 @@ class StockClient
          */
         $responseArray = json_decode($response, true);
 
-        if (($responseArray['status'] ?? '') != 'OK') {
+        if (! $this->isSuccessResponse($responseArray)) {
             throw ClientException::unexpectedResponse($response);
         }
 
         return $responseArray;
+    }
+
+    public function hasCurlError(CurlHandle $curlHandle): bool
+    {
+        return (bool) curl_errno($curlHandle);
+    }
+
+    public function isSuccessResponse(array $responseArray): bool
+    {
+        return ($responseArray['status'] ?? '') == 'OK';
     }
 
     protected function getCurlHandle(string $fullUrl): CurlHandle

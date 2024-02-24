@@ -3,6 +3,7 @@
 namespace TheCaliskan\Stock;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Spatie\LaravelData\DataCollection;
 use TheCaliskan\Stock\Data\CryptoData;
 use TheCaliskan\Stock\Data\ForexData;
@@ -20,6 +21,8 @@ class Stock
 
     /**
      * @return DataCollection<int,StockData>|StockData
+     *
+     * @throw ItemNotFoundException
      */
     public function stock(?string $symbol = null, Carbon|string|null $date = null): DataCollection|StockData
     {
@@ -30,6 +33,8 @@ class Stock
 
     /**
      * @return DataCollection<int,ForexData>|ForexData
+     *
+     * @throw ItemNotFoundException
      */
     public function forex(?string $symbol = null, Carbon|string|null $date = null): DataCollection|ForexData
     {
@@ -40,6 +45,8 @@ class Stock
 
     /**
      * @return DataCollection<int,CryptoData>|CryptoData
+     *
+     * @throw ItemNotFoundException
      */
     public function crypto(?string $symbol = null, Carbon|string|null $date = null): DataCollection|CryptoData
     {
@@ -51,12 +58,16 @@ class Stock
     protected function getData(TypeEnum $typeEnum, Carbon|string|null $date = null, ?string $symbol = null): array
     {
         if (is_string($date)) {
-            $date = Carbon::createFromFormat('Y-m-d', $date);
+            try {
+                $date = Carbon::createFromFormat('Y-m-d', $date);
 
-            if (! $date) {
+                if (! $date) {
+                    throw InvalidDateException::invalidDateFormat(); //@codeCoverageIgnore
+                } else {
+                    $date = $date->utc();
+                }
+            } catch (InvalidFormatException $exception) {
                 throw InvalidDateException::invalidDateFormat();
-            } else {
-                $date = $date->utc();
             }
         }
 
