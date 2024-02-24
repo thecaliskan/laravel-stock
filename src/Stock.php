@@ -4,7 +4,6 @@ namespace TheCaliskan\Stock;
 
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
-use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 use TheCaliskan\Stock\Data\CryptoData;
 use TheCaliskan\Stock\Data\ForexData;
