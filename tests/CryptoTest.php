@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-use Spatie\LaravelData\DataCollection;
+use Illuminate\Support\Collection;
 use TheCaliskan\Stock\Data\CryptoData;
 use TheCaliskan\Stock\Exceptions\InvalidDateException;
 use TheCaliskan\Stock\Facades\Stock;
@@ -33,7 +33,7 @@ it('success single', function ($date) {
 it('success collections', function () {
     expect(Stock::crypto())
         ->toBeObject()
-        ->toBeInstanceOf(DataCollection::class)
+        ->toBeInstanceOf(Collection::class)
         ->toContainOnlyInstancesOf(CryptoData::class)
         ->count()
         ->toBeGreaterThanOrEqual(200);

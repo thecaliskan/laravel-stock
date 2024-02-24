@@ -1,8 +1,8 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ItemNotFoundException;
-use Spatie\LaravelData\DataCollection;
 use TheCaliskan\Stock\Data\StockData;
 use TheCaliskan\Stock\Exceptions\InvalidDateException;
 use TheCaliskan\Stock\Facades\Stock;
@@ -34,7 +34,7 @@ it('success single', function ($date) {
 it('success collections', function () {
     expect(Stock::stock(null, now()->addWeeks(-1)->startOfWeek()))
         ->toBeObject()
-        ->toBeInstanceOf(DataCollection::class)
+        ->toBeInstanceOf(Collection::class)
         ->toContainOnlyInstancesOf(StockData::class)
         ->count()
         ->toBeGreaterThanOrEqual(10000);

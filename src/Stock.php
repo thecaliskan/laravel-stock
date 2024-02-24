@@ -4,7 +4,7 @@ namespace TheCaliskan\Stock;
 
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
-use Spatie\LaravelData\DataCollection;
+use Illuminate\Support\Collection;
 use TheCaliskan\Stock\Data\CryptoData;
 use TheCaliskan\Stock\Data\ForexData;
 use TheCaliskan\Stock\Data\StockData;
@@ -20,37 +20,37 @@ class Stock
     }
 
     /**
-     * @return DataCollection<int,StockData>|StockData
+     * @return Collection<int,StockData>|StockData
      *
      * @throw ItemNotFoundException
      */
-    public function stock(?string $symbol = null, Carbon|string|null $date = null): DataCollection|StockData
+    public function stock(?string $symbol = null, Carbon|string|null $date = null): Collection|StockData
     {
-        $collection = StockData::collect($this->getData(TypeEnum::Stock, $date, $symbol), DataCollection::class);
+        $collection = StockData::collect($this->getData(TypeEnum::Stock, $date, $symbol), Collection::class);
 
         return is_null($symbol) ? $collection : $collection->sole('symbol', $symbol);
     }
 
     /**
-     * @return DataCollection<int,ForexData>|ForexData
+     * @return Collection<int,ForexData>|ForexData
      *
      * @throw ItemNotFoundException
      */
-    public function forex(?string $symbol = null, Carbon|string|null $date = null): DataCollection|ForexData
+    public function forex(?string $symbol = null, Carbon|string|null $date = null): Collection|ForexData
     {
-        $collection = ForexData::collect($this->getData(TypeEnum::Forex, $date, $symbol), DataCollection::class);
+        $collection = ForexData::collect($this->getData(TypeEnum::Forex, $date, $symbol), Collection::class);
 
         return is_null($symbol) ? $collection : $collection->sole('symbol', $symbol);
     }
 
     /**
-     * @return DataCollection<int,CryptoData>|CryptoData
+     * @return Collection<int,CryptoData>|CryptoData
      *
      * @throw ItemNotFoundException
      */
-    public function crypto(?string $symbol = null, Carbon|string|null $date = null): DataCollection|CryptoData
+    public function crypto(?string $symbol = null, Carbon|string|null $date = null): Collection|CryptoData
     {
-        $collection = CryptoData::collect($this->getData(TypeEnum::Crypto, $date, $symbol), DataCollection::class);
+        $collection = CryptoData::collect($this->getData(TypeEnum::Crypto, $date, $symbol), Collection::class);
 
         return is_null($symbol) ? $collection : $collection->sole('symbol', $symbol);
     }
