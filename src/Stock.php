@@ -4,6 +4,7 @@ namespace TheCaliskan\Stock;
 
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
+use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 use TheCaliskan\Stock\Data\CryptoData;
 use TheCaliskan\Stock\Data\ForexData;
@@ -26,7 +27,7 @@ class Stock
      */
     public function stock(?string $symbol = null, Carbon|string|null $date = null): DataCollection|StockData
     {
-        $collection = StockData::collection($this->getData(TypeEnum::Stock, $date, $symbol));
+        $collection = StockData::collect($this->getData(TypeEnum::Stock, $date, $symbol), DataCollection::class);
 
         return is_null($symbol) ? $collection : $collection->sole('symbol', $symbol);
     }
@@ -38,7 +39,7 @@ class Stock
      */
     public function forex(?string $symbol = null, Carbon|string|null $date = null): DataCollection|ForexData
     {
-        $collection = ForexData::collection($this->getData(TypeEnum::Forex, $date, $symbol));
+        $collection = ForexData::collect($this->getData(TypeEnum::Forex, $date, $symbol), DataCollection::class);
 
         return is_null($symbol) ? $collection : $collection->sole('symbol', $symbol);
     }
@@ -50,7 +51,7 @@ class Stock
      */
     public function crypto(?string $symbol = null, Carbon|string|null $date = null): DataCollection|CryptoData
     {
-        $collection = CryptoData::collection($this->getData(TypeEnum::Crypto, $date, $symbol));
+        $collection = CryptoData::collect($this->getData(TypeEnum::Crypto, $date, $symbol), DataCollection::class);
 
         return is_null($symbol) ? $collection : $collection->sole('symbol', $symbol);
     }
