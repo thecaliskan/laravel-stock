@@ -25,6 +25,13 @@ Stock::crypto('X:BTCUSD', now()->addWeek(-1))
 
 ```
 
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require thecaliskan/laravel-stock
+```
 
 ## Credits
 
