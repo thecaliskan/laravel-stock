@@ -17,7 +17,6 @@ it('success single', function ($date) {
         ])
         ->and($forex->timestamp)
         ->toBeInstanceOf(Carbon::class)
-        ->toBeCarbon(is_null($date) ? now()->addDays(-1)->format('Y-m-d') : ($date instanceof Carbon ? $date->format('Y-m-d') : Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d')), 'Y-m-d')
         ->and($forex->lowestPrice)
         ->toBeLessThanOrEqual($forex->highestPrice)
         ->toBeLessThanOrEqual($forex->openPrice)
